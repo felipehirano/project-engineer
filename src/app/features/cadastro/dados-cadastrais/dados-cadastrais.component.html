@@ -1,0 +1,113 @@
+
+<main class="pagina">
+  <header class="cabecalho">
+    <a routerLink="/cadastro/categoria" class="marca">
+      Plataforma de Engenharia
+    </a>
+    <span>Cadastro de empresa</span>
+  </header>
+
+  <section class="conteudo">
+    <span class="etapa">ETAPA 2 DE 5</span>
+    <h1>Dados cadastrais</h1>
+    <p class="descricao">
+      Informe os dados da empresa e anexe seu cartão CNPJ.
+    </p>
+
+    <form [formGroup]="formulario" (ngSubmit)="continuar()"
+          novalidate>
+
+      <div class="campo">
+        <label for="cnpj">CNPJ da empresa *</label>
+        <input
+          id="cnpj"
+          type="text"
+          formControlName="cnpj"
+          placeholder="00.000.000/0000-00"
+          autocomplete="off"
+        />
+
+        @if (formulario.controls.cnpj.touched &&
+             formulario.controls.cnpj.invalid) {
+          <small class="erro">
+            Informe um CNPJ em formato válido.
+          </small>
+        }
+      </div>
+
+      <div class="campo">
+        <label for="email">E-mail corporativo *</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="contato@empresa.com.br"
+          autocomplete="email"
+        />
+
+        @if (formulario.controls.email.touched &&
+             formulario.controls.email.invalid) {
+          <small class="erro">
+            Informe um endereço de e-mail válido.
+          </small>
+        }
+      </div>
+
+      <div class="campo">
+        <label for="telefone">Telefone *</label>
+        <input
+          id="telefone"
+          type="tel"
+          formControlName="telefone"
+          placeholder="(61) 99999-9999"
+          autocomplete="tel"
+        />
+
+        @if (formulario.controls.telefone.touched &&
+             formulario.controls.telefone.invalid) {
+          <small class="erro">
+            Informe um telefone com DDD.
+          </small>
+        }
+      </div>
+
+      <div class="campo">
+        <label for="cartaoCnpj">Cartão CNPJ *</label>
+        <div class="upload">
+          <input
+            id="cartaoCnpj"
+            type="file"
+            accept=".pdf,.jpg,.jpeg,.png"
+            (change)="selecionarArquivo($event)"
+          />
+
+          <p>PDF, JPG ou PNG · Máximo de 10 MB</p>
+
+          @if (arquivoSelecionado) {
+            <p class="arquivo">
+              Arquivo: {{ arquivoSelecionado.name }}
+            </p>
+          }
+
+          @if (erroArquivo) {
+            <small class="erro">{{ erroArquivo }}</small>
+          }
+        </div>
+      </div>
+
+      <footer class="acoes">
+        <button
+          type="button"
+          class="botao-secundario"
+          routerLink="/cadastro/categoria"
+        >
+          Voltar
+        </button>
+
+        <button type="submit" class="botao-principal">
+          Salvar e continuar →
+        </button>
+      </footer>
+    </form>
+  </section>
+</main>

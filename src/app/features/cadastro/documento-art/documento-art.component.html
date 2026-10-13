@@ -1,0 +1,162 @@
+
+<main class="pagina">
+  <header class="cabecalho">
+    <a routerLink="/cadastro/categoria" class="marca">
+      Plataforma de Engenharia
+    </a>
+    <span>Documentos técnicos</span>
+  </header>
+
+  <section class="conteudo">
+    <span class="etapa">ETAPA 3 DE 5</span>
+    <h1>Enviar ART ou CAT</h1>
+    <p class="descricao">
+      Envie o documento técnico, confira os dados e revise as
+      especialidades sugeridas antes de encaminhar para análise.
+    </p>
+
+    <div class="progresso">
+      <span class="ativo">1 · Documento</span>
+      <span>2 · Especialidades</span>
+      <span>3 · Revisão</span>
+    </div>
+
+    <section class="bloco">
+      <h2>1. Arquivo do documento</h2>
+
+      <label for="arquivo">ART/CAT em PDF *</label>
+      <input
+        id="arquivo"
+        type="file"
+        accept=".pdf,application/pdf"
+        (change)="selecionarArquivo($event)"
+      />
+
+      @if (arquivo) {
+        <p class="arquivo">
+          <strong>Arquivo selecionado:</strong> {{ arquivo.name }}
+        </p>
+      }
+
+      @if (erroArquivo) {
+        <p class="erro">{{ erroArquivo }}</p>
+      }
+    </section>
+
+    <form [formGroup]="formulario" (ngSubmit)="gerarSugestoes()"
+          novalidate>
+      <section class="bloco">
+        <h2>2. Dados extraídos do documento</h2>
+
+        <p class="ajuda">
+          Protótipo: preencha os dados manualmente. A extração
+          automática será integrada posteriormente.
+        </p>
+
+        <div class="campo">
+          <label for="tipo">Tipo de documento *</label>
+          <select id="tipo" formControlName="tipo">
+            <option value="ART">ART</option>
+            <option value="CAT">CAT</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label for="numero">Número do documento *</label>
+          <input id="numero" formControlName="numero"
+                 placeholder="Número da ART/CAT" />
+        </div>
+
+        <div class="campo">
+          <label for="profissional">Profissional responsável *</label>
+          <input id="profissional" formControlName="profissional"
+                 placeholder="Nome do profissional" />
+        </div>
+
+        <div class="campo">
+          <label for="data">Data do documento *</label>
+          <input id="data" type="date" formControlName="data" />
+        </div>
+
+        <div class="campo">
+          <label for="atividade">Atividade técnica descrita *</label>
+          <textarea
+            id="atividade"
+            formControlName="atividadeTecnica"
+            rows="4"
+            placeholder="Ex.: execução de fundações profundas com estacas"
+          ></textarea>
+        </div>
+
+        <div class="campo">
+          <label for="obra">Obra / local *</label>
+          <input id="obra" formControlName="obra"
+                 placeholder="Endereço ou identificação da obra" />
+        </div>
+
+        <button type="submit" class="botao-secundario">
+          Gerar sugestões de especialidades
+        </button>
+      </section>
+    </form>
+
+    @if (sugestoes.length > 0) {
+      <section class="bloco">
+        <h2>3. Especialidades sugeridas</h2>
+
+        <p class="ajuda">
+          Confira as opções. Marque somente as que correspondem
+          ao documento técnico enviado.
+        </p>
+
+        @for (item of sugestoes; track item.nome) {
+          <label class="especialidade">
+            <input
+              type="checkbox"
+              [checked]="item.selecionada"
+              (change)="atualizarSelecao(item, $any($event.target).checked)"
+            />
+
+            <span class="dados-especialidade">
+              <strong>{{ item.nome }}</strong>
+              <span>{{ item.area }} · {{ item.grupo }}</span>
+              <span>Atividade: {{ item.atividade }}</span>
+            </span>
+          </label>
+        }
+
+        <button
+          type="button"
+          class="botao-principal"
+          (click)="enviarParaRevisao()"
+        >
+          Enviar para revisão administrativa
+        </button>
+      </section>
+    }
+
+    @if (mensagem) {
+      <p class="mensagem" aria-live="polite">{{ mensagem }}</p>
+    }
+
+    @if (enviado) {
+      <div class="sucesso">
+        <strong>Solicitação preparada!</strong>
+        <p>
+          As especialidades selecionadas aguardam análise.
+          Nenhuma delas foi aprovada automaticamente.
+        </p>
+      </div>
+    }
+
+    <footer class="acoes">
+      <button
+        type="button"
+        class="botao-voltar"
+        routerLink="/cadastro/dados"
+      >
+        ← Voltar
+      </button>
+    </footer>
+  </section>
+</main>

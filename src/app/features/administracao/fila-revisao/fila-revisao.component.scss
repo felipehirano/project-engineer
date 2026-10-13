@@ -1,0 +1,214 @@
+
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #f5f5f2;
+  color: #242b32;
+  font-family: Arial, sans-serif;
+}
+
+.pagina {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #d8dce0;
+}
+
+.marca {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.cabecalho p,
+.descricao,
+.pedido-cabecalho p,
+.dados p,
+.item-titulo p {
+  color: #66717a;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.contador {
+  padding: 9px 12px;
+  border-radius: 7px;
+  background: #e4edf5;
+  color: #1d4d6e;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.conteudo {
+  max-width: 900px;
+  margin: 38px auto;
+}
+
+h1 {
+  font-size: 30px;
+}
+
+.pedido,
+.vazio {
+  margin-top: 24px;
+  padding: 24px;
+  background: white;
+  border: 1px solid #dce1e4;
+  border-radius: 10px;
+}
+
+.pedido-cabecalho,
+.item-titulo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.pedido-cabecalho h2 {
+  margin-top: 0;
+  font-size: 19px;
+}
+
+.data {
+  color: #66717a;
+  font-size: 12px;
+}
+
+.dados {
+  margin: 20px 0;
+  padding: 14px;
+  background: #f8f9fa;
+  border-radius: 7px;
+  overflow-wrap: anywhere;
+}
+
+.dados p {
+  margin: 6px 0;
+}
+
+h3 {
+  font-size: 16px;
+}
+
+.item {
+  margin-top: 14px;
+  padding: 18px;
+  border: 1px solid #dce1e4;
+  border-radius: 8px;
+}
+
+.item-titulo strong {
+  font-size: 15px;
+}
+
+.item-titulo p {
+  margin: 5px 0;
+}
+
+.status {
+  padding: 6px 9px;
+  border-radius: 5px;
+  background: #fff0ce;
+  color: #805500;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.status.aprovada {
+  background: #e0f3e5;
+  color: #216b38;
+}
+
+.status.rejeitada {
+  background: #fde7e7;
+  color: #a32222;
+}
+
+.status.correcao {
+  background: #e6effb;
+  color: #28578b;
+}
+
+.item label {
+  display: block;
+  margin-top: 18px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+textarea {
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 8px;
+  padding: 11px;
+  border: 1px solid #cbd2d8;
+  border-radius: 6px;
+  font: inherit;
+  resize: vertical;
+}
+
+.botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+button {
+  padding: 10px 14px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.aprovar {
+  color: white;
+  background: #286b43;
+}
+
+.corrigir {
+  color: #1d4d6e;
+  background: #e4edf5;
+}
+
+.rejeitar {
+  color: #a32222;
+  background: white;
+  border-color: #d8aaaa;
+}
+
+.motivo-atual,
+.mensagem {
+  overflow-wrap: anywhere;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.vazio a {
+  color: #28638c;
+}
+
+@media (max-width: 600px) {
+  .pagina {
+    padding: 14px;
+  }
+
+  .cabecalho,
+  .pedido-cabecalho,
+  .item-titulo {
+    flex-direction: column;
+  }
+
+  .pedido {
+    padding: 16px;
+  }
+}

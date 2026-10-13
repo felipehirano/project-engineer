@@ -1,0 +1,115 @@
+
+<main class="pagina">
+  <header class="cabecalho">
+    <span class="marca">Plataforma de Engenharia</span>
+    <span>Cadastro de empresa</span>
+  </header>
+
+  <section class="conteudo">
+    <div class="introducao">
+      <span class="etapa">ETAPA 1 DE 5</span>
+      <h1>Qual é o tipo da sua empresa?</h1>
+      <p>
+        Escolha a categoria para iniciar seu cadastro na
+        Plataforma de Engenharia.
+      </p>
+    </div>
+
+    <div class="categorias">
+      <button
+        type="button"
+        class="categoria"
+        [class.selecionada]="categoriaSelecionada === 'empresa_engenharia'"
+        (click)="categoriaSelecionada = 'empresa_engenharia'"
+      >
+        <span class="icone">🏗️</span>
+        <strong>Empresa de engenharia</strong>
+        <span>Presta serviços, comprova especialidades e participa de licitações.</span>
+      </button>
+
+      <button
+        type="button"
+        class="categoria"
+        [class.selecionada]="categoriaSelecionada === 'incorporadora'"
+        (click)="categoriaSelecionada = 'incorporadora'"
+      >
+        <span class="icone">🏢</span>
+        <strong>Incorporadora</strong>
+        <span>Cria e gerencia licitações.</span>
+      </button>
+
+      <button
+        type="button"
+        class="categoria"
+        [class.selecionada]="categoriaSelecionada === 'shopping'"
+        (click)="categoriaSelecionada = 'shopping'"
+      >
+        <span class="icone">🏬</span>
+        <strong>Administradora de shopping</strong>
+        <span>Cria licitações.</span>
+      </button>
+
+      <button
+        type="button"
+        class="categoria"
+        [class.selecionada]="categoriaSelecionada === 'condominio'"
+        (click)="categoriaSelecionada = 'condominio'"
+      >
+        <span class="icone">🏠</span>
+        <strong>Condomínio</strong>
+        <span>Cria licitações.</span>
+      </button>
+
+      <button
+        type="button"
+        class="categoria"
+        [class.selecionada]="categoriaSelecionada === 'empresas'"
+        (click)="categoriaSelecionada = 'empresas'"
+      >
+        <span class="icone">🏭</span>
+        <strong>Empresas</strong>
+        <span>Indústrias, escritórios e outras organizações.</span>
+      </button>
+
+      <button
+        type="button"
+        class="categoria"
+        [class.selecionada]="categoriaSelecionada === 'hotel'"
+        (click)="categoriaSelecionada = 'hotel'"
+      >
+        <span class="icone">🏨</span>
+        <strong>Hotel</strong>
+        <span>Cria licitações.</span>
+      </button>
+
+      <button
+        type="button"
+        class="categoria"
+        [class.selecionada]="categoriaSelecionada === 'outros'"
+        (click)="categoriaSelecionada = 'outros'"
+      >
+        <span class="icone">＋</span>
+        <strong>Outros</strong>
+        <span>Informe uma categoria diferente.</span>
+      </button>
+    </div>
+
+    @if (categoriaSelecionada === 'outros') {
+      <p class="aviso">
+        A descrição da categoria será solicitada na próxima etapa.
+      </p>
+    }
+
+    <footer class="acoes">
+      <span>Você poderá continuar seu cadastro nas próximas etapas.</span>
+
+      <button
+        type="button"
+        class="botao-principal"
+        [routerLink]="['/cadastro/dados']"
+      >
+        Continuar →
+      </button>
+    </footer>
+  </section>
+</main>

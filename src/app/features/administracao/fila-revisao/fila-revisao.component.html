@@ -1,0 +1,125 @@
+
+<main class="pagina">
+  <header class="cabecalho">
+    <div>
+      <span class="marca">Plataforma de Engenharia</span>
+      <p>Administração · Revisão documental</p>
+    </div>
+    <span class="contador">
+      {{ revisaoService.contarPendentes() }} especialidade(s) pendente(s)
+    </span>
+  </header>
+
+  <section class="conteudo">
+    <h1>Fila de revisão</h1>
+    <p class="descricao">
+      Analise os documentos e decida individualmente sobre cada
+      especialidade solicitada.
+    </p>
+
+    @if (mensagem) {
+      <p class="mensagem" aria-live="polite">{{ mensagem }}</p>
+    }
+
+    @if (pedidos.length === 0) {
+      <section class="vazio">
+        <h2>Nenhum pedido recebido</h2>
+        <p>
+          Envie uma ART/CAT pela etapa de cadastro da empresa para
+          visualizar as especialidades nesta fila.
+        </p>
+        <a href="/cadastro/documento">Ir para envio de ART/CAT →</a>
+      </section>
+    }
+
+    @for (pedido of pedidos; track pedido.id) {
+      <article class="pedido">
+        <header class="pedido-cabecalho">
+          <div>
+            <h2>{{ pedido.empresa }}</h2>
+            <p>
+              {{ pedido.documento }} {{ pedido.numeroDocumento }}
+              · {{ pedido.arquivo }}
+            </p>
+          </div>
+          <span class="data">Enviado: {{ pedido.enviadoEm }}</span>
+        </header>
+
+        <div class="dados">
+          <p><strong>Profissional:</strong> {{ pedido.profissional }}</p>
+          <p><strong>Data:</strong> {{ pedido.data }}</p>
+          <p><strong>Obra:</strong> {{ pedido.obra }}</p>
+          <p><strong>Atividade técnica:</strong> {{ pedido.atividadeTecnica }}</p>
+        </div>
+
+        <h3>Decisão por especialidade</h3>
+
+        @for (item of pedido.especialidades; track item.id) {
+          <section class="item">
+            <div class="item-titulo">
+              <div>
+                <strong>{{ item.especialidade }}</strong>
+                <p>{{ item.area }} · {{ item.grupo }}</p>
+                <p>Atividade: {{ item.atividade }}</p>
+              </div>
+
+              <span
+                class="status"
+                [class.aprovada]="item.status === 'aprovada'"
+                [class.rejeitada]="item.status === 'rejeitada'"
+                [class.correcao]="item.status === 'correcao_pedida'"
+              >
+                {{ nomeStatus(item.status) }}
+              </span>
+            </div>
+
+            @if (item.motivo) {
+              <p class="motivo-atual">
+                <strong>Motivo registrado:</strong> {{ item.motivo }}
+              </p>
+            }
+
+            @if (item.status === 'em_analise') {
+              <label [for]="'motivo-' + item.id">
+                Motivo (obrigatório para rejeição ou correção)
+              </label>
+
+              <textarea
+                [id]="'motivo-' + item.id"
+                rows="2"
+                [(ngModel)]="motivoPorItem[item.id]"
+                placeholder="Descreva o motivo, se necessário"
+              ></textarea>
+
+              <div class="botoes">
+                <button
+                  type="button"
+                  class="aprovar"
+                  (click)="decidir(pedido.id, item.id, 'aprovada')"
+                >
+                  Aprovar
+                </button>
+
+                <button
+                  type="button"
+                  class="corrigir"
+                  (click)="decidir(pedido.id, item.id, 'correcao_pedida')"
+                >
+                  Pedir correção
+                </button>
+
+                <button
+                  type="button"
+                  class="rejeitar"
+                  (click)="decidir(pedido.id, item.id, 'rejeitada')"
+                >
+                  Rejeitar
+                </button>
+              </div>
+            }
+          </section>
+        }
+      </article>
+    }
+  </section>
+</main>
